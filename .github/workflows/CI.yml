@@ -1,0 +1,51 @@
+# Testing out the Linux Build to compare against Windows
+
+name: Continuous Integration
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+    paths-ignore:
+      - '.github/**'
+      - '*.md'
+    branches:
+      - "master"
+
+  workflow_dispatch:
+
+jobs:
+  Build-SIT:
+
+    strategy:
+      matrix:
+        configuration: [Debug]
+
+    runs-on: ubuntu-latest
+
+    env:
+      SolutionName: Paulov.Tarkov.Minimal
+      ProjectClient: Paulov.Tarkov.Minimal.csproj
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      # Restore all projects
+      - name: dotnet Restore
+        run: dotnet restore
+
+      # Build the project
+      - name: dotnet Publish
+        run: |
+          mkdir ${{ env.SolutionName }}-${{ matrix.configuration }}
+          dotnet build ${{ env.ProjectClient }} -c ${{ matrix.configuration }} -o ${{ env.SolutionName }}-${{ matrix.configuration }}

@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35431.28
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Paulov.Tarkov.Minimal", "Paulov.Tarkov.Minimal.csproj", "{DA1E3D2D-DFD8-46A7-A80F-B8B331EF39B4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Files", "Solution Files", "{08C0A1AC-423D-4BC2-82C4-67B85A4DFE0F}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\CI.yml = .github\workflows\CI.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{DC5F37F7-B643-4564-911C-30AC40FC6935}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\CI.yml = .github\workflows\CI.yml
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DA1E3D2D-DFD8-46A7-A80F-B8B331EF39B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA1E3D2D-DFD8-46A7-A80F-B8B331EF39B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA1E3D2D-DFD8-46A7-A80F-B8B331EF39B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA1E3D2D-DFD8-46A7-A80F-B8B331EF39B4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{DC5F37F7-B643-4564-911C-30AC40FC6935} = {08C0A1AC-423D-4BC2-82C4-67B85A4DFE0F}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7D228DEE-A85A-4733-B16B-7936A7C97DC0}
+	EndGlobalSection
+EndGlobal
