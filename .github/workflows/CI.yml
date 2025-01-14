@@ -1,5 +1,3 @@
-# Testing out the Linux Build to compare against Windows
-
 name: Continuous Integration
 
 on:
