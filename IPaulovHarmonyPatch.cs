@@ -10,7 +10,7 @@ namespace Paulov.Tarkov.Minimal
 {
     public interface IPaulovHarmonyPatch
     {
-        MethodInfo GetMethodToPatch();
+        MethodBase GetMethodToPatch();
         HarmonyMethod GetPrefixMethod();
         HarmonyMethod GetPostfixMethod();
         HarmonyMethod GetTranspilerMethod();

@@ -22,12 +22,16 @@ namespace Paulov.Tarkov.Minimal
         {
             foreach (var patch in this.GetType().Assembly.GetTypes()
                .Where(x => x.GetInterface(nameof(IPaulovHarmonyPatch)) != null)
+               .Where(x => !x.IsAbstract)
                .OrderBy(t => t.Name).ToArray())
             {
                 try
                 {
                     var harmony = new Harmony(patch.Name);
                     var obj = Activator.CreateInstance(patch) as IPaulovHarmonyPatch;
+                    if (obj.GetMethodToPatch() == null)
+                        continue;
+
                     harmony.Patch(obj.GetMethodToPatch(), obj.GetPrefixMethod(), obj.GetPostfixMethod(), obj.GetTranspilerMethod(), obj.GetFinalizerMethod(), obj.GetILManipulatorMethod());
                     harmonyList.Add(harmony);
                 }

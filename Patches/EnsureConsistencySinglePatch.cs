@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace Paulov.Tarkov.Minimal;
 
-public class EnsureConsistencySinglePatch : IPaulovHarmonyPatch
+public sealed class EnsureConsistencySinglePatch : IPaulovHarmonyPatch
 {
-    public MethodInfo GetMethodToPatch()
+    public MethodBase GetMethodToPatch()
     {
 
         var method = Assembly.GetAssembly(typeof(FilesCheckerFactory)).GetTypes().Single(x => x.Name == "ConsistencyController")
