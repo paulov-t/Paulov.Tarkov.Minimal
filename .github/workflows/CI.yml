@@ -15,7 +15,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  Build-SIT:
+  Build:
 
     strategy:
       matrix:
@@ -31,6 +31,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
+          lfs: true
           fetch-depth: 0
 
       - name: Setup .NET Core
