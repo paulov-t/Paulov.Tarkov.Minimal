@@ -5,12 +5,6 @@
 	A minimal Escape from Tarkov BepInEx 5 module that allows you to launch Escape from Tarkov and connect to a backend server. This requires a backend server that uses HTTPS/WSS.
   </p>
 
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-<br/>
-![TotalDownloads][downloads-total-shield]
-![LatestDownloads][downloads-latest-shield]
-
 </div>
 
 ## About The Project
