@@ -12,6 +12,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Files", "Solution 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{DC5F37F7-B643-4564-911C-30AC40FC6935}"
 	ProjectSection(SolutionItems) = preProject
+		.github\workflows\CD.yml = .github\workflows\CD.yml
 		.github\workflows\CI.yml = .github\workflows\CI.yml
 	EndProjectSection
 EndProject
