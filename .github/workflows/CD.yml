@@ -41,11 +41,13 @@ jobs:
 
     # Restore all projects
     - name: Restore
-      run: dotnet restore
+      run: |
+          dotnet restore
 
       # Build the project
     - name: Build
-      run: dotnet build ${{ env.ProjectClient }} -c Release -o {{ env.DllName }}
+      run: |
+          dotnet build ${{ env.ProjectClient }} -c Release -o {{ env.DllName }}
 
     - name: Get version from DLL
       id: extract-version
