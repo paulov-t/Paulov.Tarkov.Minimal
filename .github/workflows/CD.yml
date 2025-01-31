@@ -53,7 +53,7 @@ jobs:
     - name: Get version from DLL
       id: extract-version
       run: |
-        $version = [System.Diagnostics.FileVersionInfo]::GetVersionInfo("${{ env.DllName }}\{{ env.DllName }}.dll").ProductVersion
+        $version = [System.Diagnostics.FileVersionInfo]::GetVersionInfo("${{ env.DllName }}\${{ env.DllName }}.dll").ProductVersion
         echo "::set-output name=VERSION::$version"
 
     - name: Display Version in Logs
