@@ -27,6 +27,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
       with:
+        lfs: true
         fetch-depth: 0
 
     # Install the .NET Core workload
@@ -47,7 +48,7 @@ jobs:
       # Build the project
     - name: Build
       run: |
-          dotnet build ${{ env.ProjectClient }} -c Debug -o ${{ env.DllName }}
+          dotnet build ${{ env.ProjectClient }} -c Release -o ${{ env.DllName }}
 
     - name: Get version from DLL
       id: extract-version
