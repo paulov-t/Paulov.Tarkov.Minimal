@@ -61,7 +61,7 @@ jobs:
 
     - name: Zip remaining files
       run: |
-          Compress-Archive -Path ${{ env.DllName }} -DestinationPath ${{ env.DllName }}.zip
+          Compress-Archive -Path "${{ env.DllName }}\${{ env.DllName }}.dll" -DestinationPath ${{ env.DllName }}.zip
  
     # Create release as draft from the compressed file
     - name: Create Release
