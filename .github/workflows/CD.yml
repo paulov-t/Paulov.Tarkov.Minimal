@@ -27,6 +27,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
       with:
+        lfs: true
         fetch-depth: 0
 
     # Install the .NET Core workload
@@ -41,16 +42,18 @@ jobs:
 
     # Restore all projects
     - name: Restore
-      run: dotnet restore
+      run: |
+          dotnet restore
 
       # Build the project
     - name: Build
-      run: dotnet build ${{ env.ProjectClient }} -c Release -o {{ env.DllName }}
+      run: |
+          dotnet build ${{ env.ProjectClient }} -c Release -o ${{ env.DllName }}
 
     - name: Get version from DLL
       id: extract-version
       run: |
-        $version = [System.Diagnostics.FileVersionInfo]::GetVersionInfo("${{ env.DllName }}\{{ env.DllName }}.dll").ProductVersion
+        $version = [System.Diagnostics.FileVersionInfo]::GetVersionInfo("${{ env.DllName }}\${{ env.DllName }}.dll").ProductVersion
         echo "::set-output name=VERSION::$version"
 
     - name: Display Version in Logs
@@ -58,7 +61,7 @@ jobs:
 
     - name: Zip remaining files
       run: |
-          Compress-Archive -Path ${{ env.DllName }} -DestinationPath ${{ env.DllName }}.zip
+          Compress-Archive -Path "${{ env.DllName }}\${{ env.DllName }}.dll" -DestinationPath ${{ env.DllName }}.zip
  
     # Create release as draft from the compressed file
     - name: Create Release
