@@ -14,7 +14,7 @@ This has been tested and working on EFT 0.16+ using a custom (currently private)
 
 ## Installation
 - [Install BepInEx 5](https://github.com/BepInEx/BepInEx/releases) into your copy of Escape of Tarkov
-- Deobfuscate your Assembly-CSharp.dll
+- Deobfuscate your Assembly-CSharp.dll or use the one included in this Library (found in references)
 - Install Paulov.Tarkov.Minimal.dll into the Plugins folder
 
 <!-- MARKDOWN LINKS & IMAGES -->
