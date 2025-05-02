@@ -5,6 +5,7 @@ using System;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using Paulov.Tarkov.Minimal.Models;
 
 namespace Paulov.Tarkov.Minimal;
 
@@ -27,7 +28,7 @@ public sealed class EnsureConsistencyPatch : IPaulovHarmonyPatch
 
     public static bool PrefixOverrideMethod(ref object __result)
     {
-        __result = Task.FromResult<ICheckResult>(new FileCheckerResult());
+        __result = Task.FromResult<ICheckResult>(new FakeFileCheckerResult());
         return false;
     }
 
@@ -50,12 +51,5 @@ public sealed class EnsureConsistencyPatch : IPaulovHarmonyPatch
     public HarmonyMethod GetILManipulatorMethod()
     {
         return null;
-    }
-
-    private class FileCheckerResult : ICheckResult
-    {
-        public TimeSpan ElapsedTime => TimeSpan.Zero;
-
-        public Exception Exception => null;
     }
 }

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
+using Paulov.Tarkov.Minimal.Models;
 using UnityEngine.Networking;
 
 namespace Paulov.Tarkov.Minimal.Patches
@@ -11,8 +12,13 @@ namespace Paulov.Tarkov.Minimal.Patches
     {
         public MethodBase GetMethodToPatch()
         {
-            var method = typeof(UnityWebRequestTexture).GetMethod(nameof(UnityWebRequestTexture.GetTexture), new[] { typeof(string) });
+            const string methodName = nameof(UnityWebRequestTexture.GetTexture);
+            
+            Type classType = typeof(UnityWebRequestTexture);
+            MethodInfo method = classType.GetMethod(methodName, [typeof(string)]);
 
+            if(method is null) throw new MissingMethodException(classType.FullName, methodName);
+            
             Plugin.Logger.LogDebug($"{nameof(UnityWebRequestTexturePatch)}.{nameof(GetMethodToPatch)}:{method.Name}");
 
             return method;
@@ -48,11 +54,6 @@ namespace Paulov.Tarkov.Minimal.Patches
         public HarmonyMethod GetILManipulatorMethod()
         {
             return null;
-        }
-
-        public class FakeCertificateHandler : CertificateHandler
-        {
-            public override bool ValidateCertificate(byte[] certificateData) => true;
         }
     }
 }
