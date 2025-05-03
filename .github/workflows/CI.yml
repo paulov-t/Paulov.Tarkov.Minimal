@@ -1,6 +1,10 @@
 name: Continuous Integration
 
 on:
+  push:
+    branches:
+      - master
+      
   pull_request:
     types:
       - opened
