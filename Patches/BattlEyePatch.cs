@@ -1,3 +1,4 @@
+using System;
 using EFT;
 using HarmonyLib;
 using System.Linq;
@@ -10,12 +11,16 @@ public sealed class BattlEyePatch : IPaulovHarmonyPatch
 {
     public MethodBase GetMethodToPatch()
     {
-        var methodName = "RunValidation";
-        var flags = BindingFlags.Public | BindingFlags.Instance;
+        const string methodName = "RunValidation";
+        const BindingFlags flags = BindingFlags.Public | BindingFlags.Instance;
 
-        var method = Assembly.GetAssembly(typeof(AbstractGame)).GetTypes().Single(x => x.GetMethod(methodName, flags) != null)
-            .GetMethod(methodName, flags);
 
+        Type classType = Assembly.GetAssembly(typeof(AbstractGame)).GetTypes()
+            .Single(x => x.GetMethod(methodName, flags) != null);
+        MethodInfo method = classType.GetMethod(methodName, flags);
+
+        if (method is null) throw new MissingMethodException(classType.FullName, methodName);
+        
         Plugin.Logger.LogDebug($"{nameof(BattlEyePatch)}.{nameof(GetMethodToPatch)}:{method.Name}");
 
         return method;
