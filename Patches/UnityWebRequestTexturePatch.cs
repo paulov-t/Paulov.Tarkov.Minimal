@@ -1,14 +1,16 @@
 ﻿using HarmonyLib;
 using System;
 using System.Reflection;
+using Paulov.Bepinex.Framework;
+using Paulov.Bepinex.Framework.Patches;
 using Paulov.Tarkov.Minimal.Models;
 using UnityEngine.Networking;
 
 namespace Paulov.Tarkov.Minimal.Patches
 {
-    public sealed class UnityWebRequestTexturePatch : IPaulovHarmonyPatch
+    public sealed class UnityWebRequestTexturePatch : NullPaulovHarmonyPatch
     {
-        public MethodBase GetMethodToPatch()
+        public override MethodBase GetMethodToPatch()
         {
             const string methodName = nameof(UnityWebRequestTexture.GetTexture);
             
@@ -21,13 +23,8 @@ namespace Paulov.Tarkov.Minimal.Patches
 
             return method;
         }
-
-        public HarmonyMethod GetPrefixMethod()
-        {
-            return null;
-        }
-
-        public HarmonyMethod GetPostfixMethod()
+        
+        public override HarmonyMethod GetPostfixMethod()
         {
             return new HarmonyMethod(this.GetType().GetMethod(nameof(PostfixOverrideMethod), BindingFlags.Public | BindingFlags.Static));
         }
@@ -37,21 +34,6 @@ namespace Paulov.Tarkov.Minimal.Patches
             __result.certificateHandler = new FakeCertificateHandler();
             __result.disposeCertificateHandlerOnDispose = true;
             __result.timeout = 15000;
-        }
-
-        public HarmonyMethod GetTranspilerMethod()
-        {
-            return null;
-        }
-
-        public HarmonyMethod GetFinalizerMethod()
-        {
-            return null;
-        }
-
-        public HarmonyMethod GetILManipulatorMethod()
-        {
-            return null;
         }
     }
 }

@@ -5,22 +5,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
+using Paulov.Bepinex.Framework;
+using Paulov.Bepinex.Framework.Patches;
 
 namespace Paulov.Tarkov.Minimal.Patches;
 
-public class TryFillConsistencyMetadatasPatch : IPaulovHarmonyPatch
+public class TryFillConsistencyMetadatasPatch : NullPaulovHarmonyPatch
 {
     private static Type GetConsistencyControllerType()
     {
         Type[] fileCheckerTypes = Assembly.GetAssembly(typeof(FilesCheckerFactory)).GetTypes();
-        for (var i = 0; i < fileCheckerTypes.Length; i++)
+        foreach (Type type in fileCheckerTypes)
         {
-            Plugin.Logger.LogDebug($"{nameof(TryFillConsistencyMetadatasPatch)}.{nameof(GetConsistencyControllerType)}: {fileCheckerTypes[i].Name}");
+            Plugin.Logger.LogDebug($"{nameof(TryFillConsistencyMetadatasPatch)}.{nameof(GetConsistencyControllerType)}: {type.Name}");
         }
         return fileCheckerTypes.Single(x => x.Name == "ConsistencyController");
     }
 
-    public MethodBase GetMethodToPatch()
+    public override MethodBase GetMethodToPatch()
     {
         const BindingFlags flags = BindingFlags.NonPublic | BindingFlags.Instance;
         MethodInfo[] controllerMethods = GetConsistencyControllerType().GetMethods(flags);
@@ -31,7 +33,7 @@ public class TryFillConsistencyMetadatasPatch : IPaulovHarmonyPatch
         return method;
     }
 
-    public HarmonyMethod GetTranspilerMethod()
+    public override HarmonyMethod GetTranspilerMethod()
     {
         return new HarmonyMethod(this.GetType().GetMethod(nameof(TranspilerMethod), BindingFlags.Public | BindingFlags.Static));
     }
@@ -48,27 +50,5 @@ public class TryFillConsistencyMetadatasPatch : IPaulovHarmonyPatch
         ];
 
         return codeInstructions;
-    }
-
-
-
-    public HarmonyMethod GetPrefixMethod()
-    {
-        return null;
-    }
-
-    public HarmonyMethod GetPostfixMethod()
-    {
-        return null;
-    }
-
-    public HarmonyMethod GetFinalizerMethod()
-    {
-        return null;
-    }
-
-    public HarmonyMethod GetILManipulatorMethod()
-    {
-        return null;
     }
 }

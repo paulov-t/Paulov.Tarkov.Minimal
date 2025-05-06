@@ -41,5 +41,8 @@
 		  <HintPath>References\FilesChecker.dll</HintPath>
 		  <Private>False</Private>
 	  </Reference>
+	  <Reference Include="Paulov.Bepinex.Framework">
+	    <HintPath>References\Paulov.Bepinex.Framework.dll</HintPath>
+	  </Reference>
   </ItemGroup>
 </Project>

@@ -4,16 +4,17 @@ using HarmonyLib;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using Paulov.Bepinex.Framework;
+using Paulov.Bepinex.Framework.Patches;
 
 namespace Paulov.Tarkov.Minimal;
 
-public sealed class BattlEyePatch : IPaulovHarmonyPatch
+public sealed class BattlEyePatch : NullPaulovHarmonyPatch
 {
-    public MethodBase GetMethodToPatch()
+    public override MethodBase GetMethodToPatch()
     {
         const string methodName = "RunValidation";
         const BindingFlags flags = BindingFlags.Public | BindingFlags.Instance;
-
 
         Type classType = Assembly.GetAssembly(typeof(AbstractGame)).GetTypes()
             .Single(x => x.GetMethod(methodName, flags) != null);
@@ -26,7 +27,7 @@ public sealed class BattlEyePatch : IPaulovHarmonyPatch
         return method;
     }
 
-    public HarmonyMethod GetPrefixMethod()
+    public override HarmonyMethod GetPrefixMethod()
     {
         return new HarmonyMethod(this.GetType().GetMethod(nameof(PrefixOverrideMethod), BindingFlags.Public | BindingFlags.Static));
     }
@@ -36,25 +37,5 @@ public sealed class BattlEyePatch : IPaulovHarmonyPatch
         ___bool_0 = true;
         __result = Task.CompletedTask;
         return false;
-    }
-
-    public HarmonyMethod GetPostfixMethod()
-    {
-        return null;
-    }
-
-    public HarmonyMethod GetTranspilerMethod()
-    {
-        return null;
-    }
-
-    public HarmonyMethod GetFinalizerMethod()
-    {
-        return null;
-    }
-
-    public HarmonyMethod GetILManipulatorMethod()
-    {
-        return null;
     }
 }
