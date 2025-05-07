@@ -1,8 +1,13 @@
-﻿using BepInEx;
+﻿using System;
+using System.IO;
+using System.Reflection;
+using BepInEx;
 using BepInEx.Logging;
+using Paulov.Bepinex.Framework;
 
 namespace Paulov.Tarkov.Minimal;
 
+[BepInDependency("Paulov.Bepinex.Framework", BepInDependency.DependencyFlags.HardDependency)]
 [BepInPlugin("Paulov.Tarkov.Minimal", "Paulov.Tarkov.Minimal", "2025.1.13")]
 public class Plugin : BaseUnityPlugin
 {
@@ -11,9 +16,8 @@ public class Plugin : BaseUnityPlugin
     private void Awake()
     {
         Logger = base.Logger;
-
-        // Create HarmonyPatchManager and Enable the Patches
-        var hpm = new HarmonyPatchManager("Paulov's Main Harmony Manager");
+        
+        HarmonyPatchManager hpm = new("Paulov's Minimal Harmony Manager", new MinimalPatchProvider());
         hpm.EnablePatches();
     }
 }
