@@ -19,6 +19,7 @@
     <PackageReference Include="BepInEx.Core" Version="5.*" />
     <PackageReference Include="BepInEx.PluginInfoProps" Version="2.*" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Paulov.Bepinex.Framework" Version="2025.5.6.1806" />
 	  <!-- Paulov: Note. This isn't the version Tarkov is using but it is the latest available on Nuget. -->
     <PackageReference Include="UnityEngine.Modules" Version="2021.3.33" IncludeAssets="compile" />
   </ItemGroup>
