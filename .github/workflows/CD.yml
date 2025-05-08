@@ -55,11 +55,13 @@ jobs:
       run: |
           dotnet build ${{ env.ProjectClient }} -c Release -o ${{ env.DllName }}
 
-    - name: Get version from DLL
+    - name: Create Version Number
       id: extract-version
+      shell: pwsh
       run: |
-        $version = [System.Diagnostics.FileVersionInfo]::GetVersionInfo("${{ env.DllName }}\${{ env.DllName }}.dll").ProductVersion
-        echo "::set-output name=VERSION::$version"
+          $v = $([System.DateTime]::Now.ToString("yyyy.MM.dd.HHmm"))
+          echo $v
+          echo VERSION=$v >> $env:GITHUB_OUTPUT
 
     - name: Display Version in Logs
       run: echo "The extracted version is ${{ steps.extract-version.outputs.VERSION }}"
