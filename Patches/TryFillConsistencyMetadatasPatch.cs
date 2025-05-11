@@ -22,15 +22,15 @@ public class TryFillConsistencyMetadatasPatch : NullPaulovHarmonyPatch
         return fileCheckerTypes.Single(x => x.Name == "ConsistencyController");
     }
 
-    public override MethodBase GetMethodToPatch()
+    public override IEnumerable<MethodBase> GetMethodsToPatch()
     {
         const BindingFlags flags = BindingFlags.NonPublic | BindingFlags.Instance;
         MethodInfo[] controllerMethods = GetConsistencyControllerType().GetMethods(flags);
         MethodInfo method = controllerMethods.Single(x => x.Name == "TryFillConsistencyMetadatas");
 
-        Plugin.Logger.LogDebug($"{nameof(TryFillConsistencyMetadatasPatch)}.{nameof(GetMethodToPatch)}:{method.Name}");
+        Plugin.Logger.LogDebug($"{nameof(TryFillConsistencyMetadatasPatch)}.{nameof(GetMethodsToPatch)}:{method.Name}");
 
-        return method;
+        yield return method;
     }
 
     public override HarmonyMethod GetTranspilerMethod()
