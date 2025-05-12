@@ -18,6 +18,6 @@ public class Plugin : BaseUnityPlugin
         Logger = base.Logger;
         
         HarmonyPatchManager hpm = new("Paulov's Minimal Harmony Manager", new MinimalPatchProvider());
-        hpm.EnablePatches();
+        hpm.EnableAll();
     }
 }

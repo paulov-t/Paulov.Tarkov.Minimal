@@ -1,5 +1,6 @@
 ﻿using HarmonyLib;
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 using Paulov.Bepinex.Framework;
 using Paulov.Bepinex.Framework.Patches;
@@ -10,7 +11,7 @@ namespace Paulov.Tarkov.Minimal.Patches
 {
     public sealed class UnityWebRequestTexturePatch : NullPaulovHarmonyPatch
     {
-        public override MethodBase GetMethodToPatch()
+        public override IEnumerable<MethodBase> GetMethodsToPatch()
         {
             const string methodName = nameof(UnityWebRequestTexture.GetTexture);
             
@@ -19,9 +20,9 @@ namespace Paulov.Tarkov.Minimal.Patches
 
             if(method is null) throw new MissingMethodException(classType.FullName, methodName);
             
-            Plugin.Logger.LogDebug($"{nameof(UnityWebRequestTexturePatch)}.{nameof(GetMethodToPatch)}:{method.Name}");
+            Plugin.Logger.LogDebug($"{nameof(UnityWebRequestTexturePatch)}.{nameof(GetMethodsToPatch)}:{method.Name}");
 
-            return method;
+            yield return method;
         }
         
         public override HarmonyMethod GetPostfixMethod()

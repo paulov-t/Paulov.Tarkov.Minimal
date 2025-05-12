@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using EFT;
 using HarmonyLib;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace Paulov.Tarkov.Minimal;
 
 public sealed class BattlEyePatch : NullPaulovHarmonyPatch
 {
-    public override MethodBase GetMethodToPatch()
+    public override IEnumerable<MethodBase> GetMethodsToPatch()
     {
         const string methodName = "RunValidation";
         const BindingFlags flags = BindingFlags.Public | BindingFlags.Instance;
@@ -22,9 +23,9 @@ public sealed class BattlEyePatch : NullPaulovHarmonyPatch
 
         if (method is null) throw new MissingMethodException(classType.FullName, methodName);
         
-        Plugin.Logger.LogDebug($"{nameof(BattlEyePatch)}.{nameof(GetMethodToPatch)}:{method.Name}");
+        Plugin.Logger.LogDebug($"{nameof(BattlEyePatch)}.{nameof(GetMethodsToPatch)}:{method.Name}");
 
-        return method;
+        yield return method;
     }
 
     public override HarmonyMethod GetPrefixMethod()
