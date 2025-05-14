@@ -78,4 +78,4 @@ jobs:
           prerelease: true
           generate_release_notes: true
           files: ${{ env.DllName }}.zip
-          tag_name: Paulov.Tarkov.Minimal-${{ steps.extract-version.outputs.VERSION }}
+          tag_name: v${{ steps.extract-version.outputs.VERSION }}
